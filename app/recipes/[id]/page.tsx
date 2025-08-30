@@ -9,6 +9,7 @@ import { getOptimizedImage } from "@/lib/utils/cloudnary";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 
+
 type Comment = {
   _id: string;
   comment: string;
@@ -43,7 +44,9 @@ export default function RecipeDetailPage() {
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "",
     headers: {
       "Content-Type": "application/json",
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ...(session?.user && (session.user as any).accessToken
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ? { Authorization: `Bearer ${(session.user as any).accessToken}` }
         : {}),
     },
@@ -175,7 +178,7 @@ export default function RecipeDetailPage() {
           >
             📌 {saving ? "Saving..." : "Save"}
           </button>
-
+          
           {recipe.createdBy && (session?.user as any)?.id === recipe.createdBy._id?.toString() && (
             <button
               onClick={handleDelete}

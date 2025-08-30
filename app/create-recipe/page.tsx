@@ -126,6 +126,7 @@ const handleSubmit = async () => {
     sessionStorage.removeItem("aiImageUrl");
 
     router.push(`/recipes/${data._id}`);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     alert(error.message);
     console.error(error);

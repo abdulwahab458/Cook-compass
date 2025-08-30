@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 export default function UploadTestPage() {
@@ -39,7 +40,7 @@ export default function UploadTestPage() {
       {url && (
         <div className="mt-4">
           <p>Uploaded Image:</p>
-          <img src={url} alt="Uploaded" className="mt-2 max-w-xs rounded" />
+          <Image src={url} height={50} width={50} alt="Uploaded" className="mt-2 max-w-xs rounded" />
         </div>
       )}
     </div>

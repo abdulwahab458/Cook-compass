@@ -31,14 +31,15 @@ export async function GET(req: Request, context: Params) {
             createdAt: recipe.createdAt.toISOString(),
             updatedAt: recipe.updatedAt.toISOString(),
             createdBy: recipe.createdBy
-                ? {
+                ? {// eslint-disable-next-line @typescript-eslint/no-explicit-any
                     _id: (recipe.createdBy as any)._id.toString(),
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     name: (recipe.createdBy as any).name,
                 }
                 : null,
         };
-
         return NextResponse.json(serializedRecipe, { status: 200 });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         console.error("Error fetching recipe:", error);
         return NextResponse.json({ error: error.message }, { status: 500 });
@@ -84,6 +85,7 @@ export async function PUT(req: Request, { params }: Params) {
         if (!recipe) {
             return NextResponse.json({ error: "Recipe not found " }, { status: 404 });
         }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (recipe.createdBy?.toString() !== (session.user as any).id) {
             return NextResponse.json({ error: "Forbidden: Not the owner" }, { status: 403 });
         }
@@ -112,8 +114,8 @@ export async function PUT(req: Request, { params }: Params) {
                 { status: 404 }
             );
         }
-
         return NextResponse.json(updatedRecipe, { status: 200 });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         return NextResponse.json(
             { error: error.message },
@@ -140,7 +142,7 @@ export async function DELETE(req: Request, { params }: Params) {
         if (!recipe) {
             return NextResponse.json({ error: "Recipe not found" }, { status: 404 });
         }
-
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (recipe.createdBy?._id.toString() !== (session.user as any).id) {
             return NextResponse.json({ error: "Forbidden: Not the owner" }, { status: 403 });
         }
@@ -150,6 +152,7 @@ export async function DELETE(req: Request, { params }: Params) {
             { message: "Recipe deleted Successfully " },
             { status: 200 }
         );
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }

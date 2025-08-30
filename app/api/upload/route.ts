@@ -37,8 +37,9 @@ export async function POST(req: Request) {
                 })
                 .end(buffer);
         });
-
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return NextResponse.json({ url: (result as any).secure_url }, { status: 200 });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }

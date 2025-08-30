@@ -27,7 +27,9 @@ const SavedRecipesPage = () => {
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "",
     headers: {
       "Content-Type": "application/json",
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ...(session?.user && (session.user as any).accessToken
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ? { Authorization: `Bearer ${(session.user as any).accessToken}` }
         : {}),
     },
@@ -75,7 +77,7 @@ const SavedRecipesPage = () => {
               <Link key={recipe._id} href={`/recipes/${recipe._id}`}>
                 <div className="bg-white/90 backdrop-blur-md border border-pink-200 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition p-4 cursor-pointer flex flex-col">
                   {recipe.image && (
-                    <img
+                    <img  
                       src={getOptimizedImage(recipe.image, 400, 250)}
                       alt={recipe.title}
                       className="w-full h-44 object-cover rounded-lg mb-4 shadow-sm"

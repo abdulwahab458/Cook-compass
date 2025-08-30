@@ -46,6 +46,7 @@ export async function POST(
     await recipe.save();
 
     return NextResponse.json(newComment, { status: 200 });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

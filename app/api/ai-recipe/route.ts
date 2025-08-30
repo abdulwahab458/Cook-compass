@@ -57,7 +57,7 @@ Requirements:
         let parsed;
         try {
             parsed = JSON.parse(aitext);
-        } catch (error: any) {
+        } catch (error) {
             return NextResponse.json({ error: "Failed to Parse AI text", raw: aitext }, { status: 500 });
         }
 
@@ -80,6 +80,7 @@ Requirements:
             },
             { status: 200 }
         );
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }

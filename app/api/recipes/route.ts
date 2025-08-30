@@ -23,7 +23,7 @@ export async function GET(req: Request) {
     const tag = searchParams.get("tag") || ""; // <-- get tag
     const sortOption = searchParams.get("sort") || "newest";
 
-    // 🔥 build query
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const query: any = {};
     if (search) {
       query.title = { $regex: search, $options: "i" };
@@ -56,6 +56,7 @@ export async function GET(req: Request) {
       },
       { status: 200 }
     );
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return NextResponse.json(
       { error: error.message },
@@ -88,12 +89,13 @@ export async function POST(req: Request) {
     //   createdBy: session.user.id, // this is the user's ObjectId
     // });
     const recipe = await Recipe.create({
-      ...parsed.data,
+      ...parsed.data,// eslint-disable-next-line @typescript-eslint/no-explicit-any
       createdBy: new mongoose.Types.ObjectId((session.user as any).id)
     });
 
 
     return NextResponse.json(recipe, { status: 201 });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
 
     return NextResponse.json(

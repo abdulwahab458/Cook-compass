@@ -13,6 +13,7 @@ export default function TestLoginPage() {
         <div>
           <p>Welcome, {session.user?.name}!</p>
           <p>Email: {session.user?.email}</p>
+          {/* // eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           <p>MongoDB ID: {(session.user as any).id}</p>
           <button onClick={() => signOut()} style={{ marginTop: "1rem" }}>
             Sign Out

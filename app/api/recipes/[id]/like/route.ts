@@ -41,6 +41,7 @@ export async function POST(req: Request, { params }: Params) {
         }
 
         return NextResponse.json({ likes: updated!.likes }, { status: 200 });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error:any) {
         return NextResponse.json({error:error.message},{status:200})
     }

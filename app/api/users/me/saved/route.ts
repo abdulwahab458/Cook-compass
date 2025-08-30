@@ -44,7 +44,7 @@ export async function GET() {
 
   try {
     await dbconnect();
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const userId = (session.user as any).id;
     const user = await User.findById(userId).populate({
       path: "savedRecipes",
@@ -61,6 +61,7 @@ export async function GET() {
       },
       { status: 200 }
     );
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     console.error("Error fetching saved recipes:", err);
     return NextResponse.json(

@@ -1,9 +1,9 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 const MONGO_URI = process.env.MONGO_URI!;
  
 declare global {
   // allow global var in dev to prevent multiple connections during HMR
-  // eslint-disable-next-line no-var
+  
   var _mongoose: {
     conn: typeof mongoose | null;
     promise: Promise<typeof mongoose> | null;

@@ -18,6 +18,7 @@
       await dbconnect();
 
       const recipeId = params.id;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const userId = (session.user as any).id;
 
       // Find user
@@ -28,11 +29,13 @@
 
       // Toggle save/unsave
       const isSaved = user.savedRecipes.some(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (savedId: any) => savedId.toString() === recipeId
       );
 
       if (isSaved) {
         user.savedRecipes = user.savedRecipes.filter(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (savedId: any) => savedId.toString() !== recipeId
         );
       } else {
@@ -47,6 +50,7 @@
           : "Recipe saved successfully",
         saved: !isSaved,
       });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error("Error saving recipe:", err);
       return NextResponse.json(
