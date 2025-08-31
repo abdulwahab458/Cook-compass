@@ -4,9 +4,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { getOptimizedImage } from "@/lib/utils/cloudnary";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 type Recipe = {
   _id: string;
@@ -77,9 +77,12 @@ const SavedRecipesPage = () => {
               <Link key={recipe._id} href={`/recipes/${recipe._id}`}>
                 <div className="bg-white/90 backdrop-blur-md border border-pink-200 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition p-4 cursor-pointer flex flex-col">
                   {recipe.image && (
-                    <img  
-                      src={getOptimizedImage(recipe.image, 400, 250)}
+                    <Image 
+                      src={recipe.image}
                       alt={recipe.title}
+                      width={800}
+                      height={500}
+
                       className="w-full h-44 object-cover rounded-lg mb-4 shadow-sm"
                     />
                   )}

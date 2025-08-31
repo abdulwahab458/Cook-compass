@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { Trash, ArrowLeft } from 'lucide-react';
-import { getOptimizedImage } from "@/lib/utils/cloudnary";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 
 type Comment = {
@@ -133,9 +133,11 @@ export default function RecipeDetailPage() {
         </button>
 
         {recipe.image && (
-          <img
-            src={getOptimizedImage(recipe.image, 800, 400)}
+          <Image
+            src={recipe.image}
             alt={recipe.title}
+            width={800}
+            height={400}
             className="w-full h-64 object-cover rounded-xl shadow-md mb-6"
           />
         )}
