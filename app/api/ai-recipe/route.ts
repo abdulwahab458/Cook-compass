@@ -58,6 +58,7 @@ Requirements:
         try {
             parsed = JSON.parse(aitext);
         } catch (error) {
+            console.log(error)
             return NextResponse.json({ error: "Failed to Parse AI text", raw: aitext }, { status: 500 });
         }
 
