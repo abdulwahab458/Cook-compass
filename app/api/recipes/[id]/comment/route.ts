@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import Recipe from "@/models/Recipe";
 import { dbconnect } from "@/lib/db";
 import { getServerSession } from "next-auth";
@@ -6,14 +6,14 @@ import { authOptions } from "@/lib/auth";
 import mongoose from "mongoose";
 
 export async function POST(
-  req: Request,
-  context: { params: { id: string } }
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
-  const { params } = context; // ✅ do NOT await
-  const recipeId = params.id; // ✅ just access it directly
+  const { id: recipeId } = await context.params; // ✅ await params
 
   const session = await getServerSession(authOptions);
-  if (!session) {
+  if (!session || !session.user?.id) {
+    // ✅ handle missing user safely
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -37,7 +37,7 @@ export async function POST(
     }
 
     const newComment = {
-      userId: session.user.id,
+      userId: session.user.id, // ✅ safe now because we checked above
       comment,
       createdAt: new Date(),
     };
@@ -46,7 +46,7 @@ export async function POST(
     await recipe.save();
 
     return NextResponse.json(newComment, { status: 200 });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
